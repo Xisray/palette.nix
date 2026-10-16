@@ -92,10 +92,9 @@
         else defaultName src;
       fileName = baseName + lib.optionalString (ext != null) ".${ext}";
     in
-      /.
-      + (builtins.toFile
-        (lib.strings.sanitizeDerivationName fileName)
-        (mkRender (withVariables variables) strict src));
+      builtins.toFile
+      (lib.strings.sanitizeDerivationName fileName)
+      (mkRender (withVariables variables) strict src);
   in
     strings
     // {
