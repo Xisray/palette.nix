@@ -21,6 +21,13 @@
 
   roleNames = ["primary" "secondary" "tertiary"];
 
+  # Роли по умолчанию для схем из файла (в tinted-theming их нет).
+  defaultRoles = {
+    primary = "base0D";
+    secondary = "base0E";
+    tertiary = "base0B";
+  };
+
   semanticNames = {
     red = "base08";
     pink = "base12"; # bright red
@@ -95,6 +102,18 @@
     v = validate [] paletteType palette;
   in
     deepSeq v v;
+
+  # Что можно переопределять: все base и роли (семантические имена — нельзя).
+  overridableNames = base16Names ++ base24Names ++ roleNames;
 in {
-  inherit mkValidate roleNames semanticNames fillBase24;
+  inherit
+    mkValidate
+    roleNames
+    defaultRoles
+    semanticNames
+    fillBase24
+    base16Names
+    base24Names
+    overridableNames
+    ;
 }
